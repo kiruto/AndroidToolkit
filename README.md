@@ -48,6 +48,14 @@ class Example {
 class ExampleFragment: Fragment() {
     var showTitle by args("show_title", false)
     
+    // update UI after variable set
+    var showLogo by state("show_logo", false) {
+        updateUI()
+    }
+    
+    // do before set or after set
+    var data by state("data", "ABC", willSet = {/*...*/}, didSet = {/*...*/})
+    
     fun valid() {
         Log.d(showTitle)
         showTitle = false
@@ -73,6 +81,14 @@ fun use() {
 class ExampleActivity: Activity {
     var showTitle by state("show_title", false)
     
+    // update UI after variable set
+    var showLogo by state("show_logo", false) {
+        updateUI()
+    }
+    
+    // do before set or after set
+    var data by state("data", "ABC", willSet = {/*...*/}, didSet = {/*...*/})
+    
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         (intent.extras ?: Bundle().also(intent::putExtras))
@@ -86,5 +102,7 @@ class ExampleActivity: Activity {
         showTitle = null
         Log.d(showTitle)
     }
+    
+    private fun updateUI() { /*...*/ }
 }
 ```
