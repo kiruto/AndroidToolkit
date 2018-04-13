@@ -49,12 +49,12 @@ class ExampleFragment: Fragment() {
     var showTitle by args("show_title", false)
     
     // update UI after variable set
-    var showLogo by state("show_logo", false) {
+    var showLogo by args("show_logo", false) {
         updateUI()
     }
     
     // do before set or after set
-    var data by state("data", "ABC", willSet = {/*...*/}, didSet = {/*...*/})
+    var data by args("data", "ABC", willSet = {/*...*/}, didSet = {/*...*/})
     
     fun valid() {
         Log.d(showTitle)
