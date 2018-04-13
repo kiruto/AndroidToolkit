@@ -68,8 +68,8 @@ class ExampleFragment: Fragment() {
 fun use() {
     ExampleFragment()
         .apply {
-            arguments = Bundle().apply { bundle ->
-                bundle.putBoolean("show_title", true)
+            arguments = Bundle().apply {
+                putBoolean("show_title", true)
             }
         }
         .valid()
