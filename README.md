@@ -3,6 +3,7 @@
 ```kotlin
 class Example(context: Context) {
     val context by weak(context)
+    var fragment by weak<Fragment>()
     
     fun use() {
         context?.let { ctx ->
@@ -10,6 +11,13 @@ class Example(context: Context) {
         } ?: throw ObjectHasAlreadyReleasedException()
     }
 }
+
+class Use: Fragment() {
+    init {
+        Example(context).fragment = this
+    }
+}
+
 ```
 
 # SharedPreferences
