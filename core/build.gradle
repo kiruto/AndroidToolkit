@@ -1,14 +1,11 @@
-apply plugin: 'com.android.application'
-
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 28
     buildToolsVersion "27.0.3"
     defaultConfig {
-        applicationId "com.exyui.androidtoolkit"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
