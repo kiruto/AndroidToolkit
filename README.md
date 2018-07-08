@@ -141,3 +141,16 @@ fun matches(): Int? {
     ]
 }
 ```
+
+# Manifest
+```xml
+ <meta-data 
+     android:name="com.exyui.tools"
+     android:value="123" /> 
+```
+
+```kotlin
+val tools1 by manifest("com.exyui.tools", 0) // == 123
+val tools2 by manifest("com.exyui.tools", "0") // == "123"
+val tools2 by manifest("com.exyui.tools1", "0") // == "0"
+```

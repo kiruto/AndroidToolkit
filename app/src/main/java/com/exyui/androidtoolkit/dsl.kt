@@ -8,6 +8,7 @@ import java.lang.ref.WeakReference
 
 
 fun <T> weak(value: T? = null) = WeakRefHolder(WeakReference(value))
+fun <T> manifest(key: String, defaultValue: T) = ManifestDelegate(key, defaultValue)
 fun <T> Context.sp(key: String, default: T, table: String = "com.exyui.androidtoolkit.COMMON") = SPHelper(key, default, this, table)
 fun <T> sp(key: String, default: T, table: String = "com.exyui.androidtoolkit.COMMON") = context?.sp(key, default, table)?: throw RuntimeException("Please call initToolKit(context) before use this")
 fun <T: Any> Fragment.args(key: String, default: T, didSet: ((newValue: T?) -> Unit)? = null, willSet: ((newValue: T?) -> Unit)? = null): BundleDelegate<T> {
