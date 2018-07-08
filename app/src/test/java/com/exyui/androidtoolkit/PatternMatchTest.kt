@@ -45,12 +45,8 @@ class PatternMatchTest {
         fun matchesWithDefault(): Int {
             // will return a non-null result
             return switch(1) (
-                    case(0) {
-                        1
-                    },
-                    default = {
-                        0
-                    }
+                    case(0) { 1 },
+                    default = { 0 }
             )
         }
 

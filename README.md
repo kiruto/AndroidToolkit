@@ -115,7 +115,7 @@ class ExampleActivity: Activity {
 }
 ```
 
-# Pattern Match
+# Kotlin with Pattern Match
 ```kotlin
 fun matches(): Int? {
     
@@ -164,7 +164,7 @@ fun matchesWithDefault(): Int {
     // will return a non-null result
     return switch(1) (
         case(0) {
-        
+            1        
         },
         default = {
             0
