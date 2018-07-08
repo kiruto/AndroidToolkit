@@ -5,7 +5,7 @@ import kotlin.reflect.KClass
 fun switch(vararg params: Any?) = SwitchContext(*params)
 
 fun <T>case(vararg pattern: Any?, block: () -> T?) = CaseContext(*pattern, default = false, block = block)
-fun <T>default(block: () -> T?) = CaseContext(default = true, block = block)
+fun <T>default(block: () -> T) = CaseContext(default = true, block = block)
 
 fun type(content: KClass<*>) = Pattern.Type(content)
 fun <T: Any>instanceOf(content: KClass<T>) = Pattern.InstanceOf(content)
@@ -25,10 +25,15 @@ sealed class Pattern(internal val content: Any?) {
 
 class SwitchContext(private vararg val params: Any?) {
     operator fun <T>invoke(vararg cases: CaseContext<T>): T? = match(*cases)
+    operator fun <T>invoke(vararg cases: CaseContext<T>, default: () -> T): T = matchWithDefault(*cases, defaultBlock = default)
     operator fun <T>get(vararg cases: CaseContext<T>): T? = match(*cases)
 
-    fun <T>match(vararg cases: CaseContext<T>): T? {
-        var defaultImpl: CaseContext<T>? = null
+    private fun <T>matchWithDefault(vararg cases: CaseContext<T>, defaultBlock: () -> T): T {
+        return match(*cases, defaultBlock = defaultBlock) as T
+    }
+
+    private fun <T>match(vararg cases: CaseContext<T>, defaultBlock: (() -> T)? = null): T? {
+        var defaultImpl: CaseContext<T>? = defaultBlock?.let(::default)
 
         cases.forEach { case ->
             if(case.default) {

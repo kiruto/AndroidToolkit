@@ -141,7 +141,7 @@ fun matches(): Int? {
     ]
 }
 
-class A
+open class A
 class B: A()
 
 fun matchesType(): Int? {
@@ -158,6 +158,18 @@ fun matchesType(): Int? {
             2
         }
     ]
+}
+
+fun matchesWithDefault(): Int {
+    // will return a non-null result
+    return switch(1) (
+        case(0) {
+        
+        },
+        default = {
+            0
+        }
+    )
 }
 
 ```
