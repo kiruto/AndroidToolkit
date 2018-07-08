@@ -187,3 +187,31 @@ val tools2 by manifest("com.exyui.tools", "0") // == "123"
 val tools3 by manifest("com.exyui.tools", 0F) // == 123F
 val tools4 by manifest("com.exyui.tools1", "0") // == "0"
 ```
+
+# Logger
+```kotlin
+addLogger(object: ToolKitLogger {
+    override fun d(tag: String, msg: String) {
+        println("d")
+        println(tag)
+        println(msg)
+        Log.d(tag, msg)
+    }
+
+    override fun e(tag: String, msg: String) {
+        println("e")
+        println(tag)
+        println(msg)
+        Log.e(tag, msg)
+    }
+})
+
+
+// FileName.kt
+fun functionName() {
+    // show log with filename, function name and line number
+    trace("Example string") // functionName (FileName.kt:25)	Example string
+    errorlog(Exception()) // functionName (FileName.kt:25)	Exception
+}
+
+```

@@ -1,9 +1,15 @@
 package com.exyui.androidtoolkit
 
+import android.app.Application
 import android.content.Context
 
-internal var context by weak<Context>()
+internal const val LOG_TAG = "ToolKit"
 
 fun initToolKit(ctx: Context) {
-    context = ctx.applicationContext
+    (ctx.applicationContext as? Application)?.let(Application::install)
+}
+
+interface ToolKitLogger {
+    fun d(tag: String, msg: String)
+    fun e(tag: String, msg: String)
 }

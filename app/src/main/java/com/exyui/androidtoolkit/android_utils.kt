@@ -15,7 +15,7 @@ val AppCompatActivity.state
         }
     }
 
-fun Application.install() {
+internal fun Application.install() {
     appInstance = this
     registerActivityLifecycleCallbacks(object: Application.ActivityLifecycleCallbacks {
         override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
