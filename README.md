@@ -114,3 +114,30 @@ class ExampleActivity: Activity {
     private fun updateUI() { /*...*/ }
 }
 ```
+
+# Pattern Match
+```kotlin
+fun matches(): Int? {
+    
+    // will return matched branch 2
+    
+    return switch(1, 2, null, 4)[
+            case(1, any, 2, 4) {
+                println("matched branch 1")
+                0
+            },
+            case (1, 2, 3, any) {
+                println("matched branch 2")
+                1
+            },
+            case(1, type(Int::class), maybe(3), 4) {
+                println("matched branch 3")
+                2
+            },
+            default {
+                println("matched branch default")
+                0
+            }
+    ]
+}
+```
