@@ -119,20 +119,20 @@ class ExampleActivity: Activity {
 ```kotlin
 fun matches(): Int? {
     
-    // will return matched branch 2
+    // will return matched branch 3
     
     return switch(1, 2, null, 4)[
             case(1, any, 2, 4) {
                 println("matched branch 1")
-                0
+                1
             },
             case (1, 2, 3, any) {
                 println("matched branch 2")
-                1
+                2
             },
             case(1, type(Int::class), maybe(3), 4) {
                 println("matched branch 3")
-                2
+                3
             },
             default {
                 println("matched branch default")
@@ -140,6 +140,26 @@ fun matches(): Int? {
             }
     ]
 }
+
+class A
+class B: A()
+
+fun matchesType(): Int? {
+
+    // will return matched branch 2
+
+    return switch(B()) [
+        case(type(A::class)) {
+            println("matched branch 1")
+            1
+        },
+        case(instanceOf(A::class)) {
+            println("matched branch 1")
+            2
+        }
+    ]
+}
+
 ```
 
 # Manifest

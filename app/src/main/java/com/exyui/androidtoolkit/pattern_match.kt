@@ -7,7 +7,8 @@ fun switch(vararg params: Any?) = SwitchContext(*params)
 fun <T>case(vararg pattern: Any?, block: () -> T?) = CaseContext(*pattern, default = false, block = block)
 fun <T>default(block: () -> T?) = CaseContext(default = true, block = block)
 
-fun <T: Any>type(content: KClass<T>) = Pattern.Type(content)
+fun type(content: KClass<*>) = Pattern.Type(content)
+fun <T: Any>instanceOf(content: KClass<T>) = Pattern.InstanceOf(content)
 fun <T: Any>some(p: T) = Pattern.Some(p)
 fun <T: Any>maybe(content: T?) = Pattern.MayBe(content)
 val any = Pattern.All()
@@ -18,7 +19,8 @@ sealed class Pattern(internal val content: Any?) {
     class None: Pattern(null)
     class MayBe<T: Any>(content: T?): Pattern(content)
     class All: Pattern(null)
-    class Type<T: Any>(t: KClass<T>): Pattern(t)
+    class Type(t: KClass<*>): Pattern(t)
+    class InstanceOf<T: Any>(val cls: KClass<T>): Pattern(null)
 }
 
 class SwitchContext(private vararg val params: Any?) {
@@ -43,7 +45,8 @@ class SwitchContext(private vararg val params: Any?) {
                     is Pattern.Some<*> -> if(params[index] == pattern.content) return@forEachIndexed
                     is Pattern.None -> if(params[index] == null) return@forEachIndexed
                     is Pattern.MayBe<*> -> if(params[index] == pattern.content || params[index] == null) return@forEachIndexed
-                    is Pattern.Type<*> -> params[index]?.takeIf { it::class == pattern.content }?.let { return@forEachIndexed }
+                    is Pattern.Type -> params[index]?.takeIf { it::class == pattern.content }?.let { return@forEachIndexed }
+                    is Pattern.InstanceOf<*> -> if (pattern.cls.isInstance(params[index])) return@forEachIndexed
                 }
                 return@forEach
             }
