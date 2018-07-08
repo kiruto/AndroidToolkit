@@ -152,5 +152,6 @@ fun matches(): Int? {
 ```kotlin
 val tools1 by manifest("com.exyui.tools", 0) // == 123
 val tools2 by manifest("com.exyui.tools", "0") // == "123"
-val tools2 by manifest("com.exyui.tools1", "0") // == "0"
+val tools3 by manifest("com.exyui.tools", 0F) // == 123F
+val tools4 by manifest("com.exyui.tools1", "0") // == "0"
 ```
