@@ -9,7 +9,7 @@ import kotlin.reflect.KProperty
 class BundleDelegate<T: Any>(
         private val bundle: Bundle,
         private val key: String,
-        private val default: T,
+        private val default: T? = null,
         private val willSet: ((newValue: T?) -> Unit)? = null,
         private val didSet: ((newValue: T?) -> Unit)? = null
 ) {

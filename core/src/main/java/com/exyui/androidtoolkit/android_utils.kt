@@ -4,11 +4,10 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 
 internal var appInstance by weak<Application>()
 
-val AppCompatActivity.state
+val Activity.state
     get() = intent.extras ?: run {
         Bundle().apply {
             intent.putExtras(this)
