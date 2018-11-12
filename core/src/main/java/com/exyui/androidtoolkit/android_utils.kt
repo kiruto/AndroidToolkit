@@ -3,7 +3,7 @@ package com.exyui.androidtoolkit
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 
 internal var appInstance by weak<Application>()
 
